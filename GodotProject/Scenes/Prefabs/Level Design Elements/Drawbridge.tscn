@@ -11,6 +11,8 @@ size = Vector3(2, 0.5, 3)
 [node name="Drawbridge" type="Node3D"]
 script = ExtResource("1_8bf7l")
 two_way_movement = true
+animation_interval = 0.0
+auto_start = false
 
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0, 0)
@@ -21,6 +23,7 @@ collision_mask = 7
 sync_to_physics = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/StaticBody3D"]
+layers = 2
 mesh = SubResource("BoxMesh_cuibe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/StaticBody3D"]
