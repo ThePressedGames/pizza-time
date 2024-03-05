@@ -1,10 +1,15 @@
 [gd_scene load_steps=7 format=3 uid="uid://cwjqm88bs7exc"]
 
 [ext_resource type="Script" path="res://Scripts/Projectile.gd" id="1_ghg8v"]
+[ext_resource type="AudioStream" uid="uid://detl2wqvghrbw" path="res://Audio/SFX/PizzaTime_PizzaThrow01.wav" id="2_1bjxb"]
 [ext_resource type="PackedScene" uid="uid://85bmetumyjya" path="res://Art/Models/PC/pizza v1.glb" id="2_84wrn"]
 [ext_resource type="Material" uid="uid://bhg34bwe4pycc" path="res://Art/Materials/outline.tres" id="3_ctt3l"]
+[ext_resource type="AudioStream" uid="uid://bwu857taem2qm" path="res://Audio/SFX/PizzaTime_PizzaThrow02.wav" id="3_w7ggx"]
 [ext_resource type="Shader" path="res://Art/Shaders/cel-shader-emission.gdshader" id="4_houdh"]
+[ext_resource type="AudioStream" uid="uid://dlqolnljayv0k" path="res://Audio/SFX/PizzaTime_PizzaHit01.wav" id="4_oadwb"]
 [ext_resource type="Texture2D" uid="uid://b62qctfrlelpa" path="res://Art/Models/PC/pizza v1_pizza_texture v1.png" id="5_iom5v"]
+[ext_resource type="AudioStream" uid="uid://c0g2olcedmbs4" path="res://Audio/SFX/PizzaTime_PizzaHit02.wav" id="5_jgyg7"]
+[ext_resource type="AudioStream" uid="uid://b2dswmcr1x5kn" path="res://Audio/SFX/PizzaTime_PizzaHit03.wav" id="6_yal10"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_icdkg"]
 render_priority = 0
@@ -67,6 +72,8 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 collision_layer = 0
 collision_mask = 13
 script = ExtResource("1_ghg8v")
+pizza_throw_sounds = Array[AudioStreamWAV]([ExtResource("2_1bjxb"), ExtResource("3_w7ggx")])
+pizza_hit_sounds = Array[AudioStreamWAV]([ExtResource("4_oadwb"), ExtResource("5_jgyg7"), ExtResource("6_yal10")])
 
 [node name="pizza v1" parent="." instance=ExtResource("2_84wrn")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0.00128633, 0, 0.00104387)
@@ -85,6 +92,9 @@ libraries = {
 "": SubResource("AnimationLibrary_kqelo")
 }
 autoplay = "pizza projectile animation"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -15.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

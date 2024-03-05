@@ -1,6 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://crhigal1rlfrx"]
 
 [ext_resource type="Script" path="res://Scripts/MovableElement.gd" id="1_ogrrl"]
+[ext_resource type="AudioStream" uid="uid://i7fn0c217u5l" path="res://Audio/SFX/PizzaTime_PlatformMovement01.wav" id="2_m3156"]
+[ext_resource type="AudioStream" uid="uid://cs8hrjvyuo0e6" path="res://Audio/SFX/PizzaTime_PlatformMovement02.wav" id="3_06ism"]
+[ext_resource type="AudioStream" uid="uid://dc6rtf1rb7vb" path="res://Audio/SFX/PizzaTime_PlatformMovement03.wav" id="4_ecqqb"]
+[ext_resource type="AudioStream" uid="uid://b8c81o4ftrmit" path="res://Audio/SFX/PizzaTime_PlatformMovement04.wav" id="5_8s5rn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cuibe"]
 size = Vector3(6, 10, 1)
@@ -11,6 +15,7 @@ size = Vector3(6, 10, 1)
 [node name="SlidingPlatform" type="Node3D"]
 script = ExtResource("1_ogrrl")
 two_way_movement = true
+movement_sounds = Array[AudioStreamWAV]([ExtResource("2_m3156"), ExtResource("3_06ism"), ExtResource("4_ecqqb"), ExtResource("5_8s5rn")])
 animation_interval = 0.0
 auto_start = false
 
@@ -33,3 +38,5 @@ shape = SubResource("BoxShape3D_qt8se")
 
 [node name="EndingNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

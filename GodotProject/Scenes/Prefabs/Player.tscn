@@ -3,7 +3,12 @@
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_6d860"]
 [ext_resource type="Texture2D" uid="uid://ma18qtx1qeta" path="res://Art/Icons/WhiteCircle.png" id="2_jepl7"]
 [ext_resource type="PackedScene" uid="uid://85bmetumyjya" path="res://Art/Models/PC/pizza v1.glb" id="2_xadov"]
+[ext_resource type="AudioStream" uid="uid://w5hhq2cl1qui" path="res://Audio/SFX/PizzaTime_Walk.wav" id="2_xht7t"]
+[ext_resource type="AudioStream" uid="uid://dab7nbdnypttn" path="res://Audio/SFX/PizzaTime_Jump01.wav" id="3_3xvii"]
 [ext_resource type="Material" uid="uid://dh0gfjniluaww" path="res://Art/Materials/pizza_material.tres" id="3_fw6aw"]
+[ext_resource type="AudioStream" uid="uid://c4kpq7gwyehef" path="res://Audio/SFX/PizzaTime_Jump02.wav" id="4_l47gu"]
+[ext_resource type="AudioStream" uid="uid://48nitw4vbmhn" path="res://Audio/SFX/PizzaTime_Jump03.wav" id="5_moyer"]
+[ext_resource type="AudioStream" uid="uid://dv2q0e8ff7ldb" path="res://Audio/SFX/PizzaTime_Jump04.wav" id="6_o22b6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cyhp0"]
 
@@ -125,6 +130,8 @@ collision_layer = 2
 collision_mask = 5
 floor_stop_on_slope = false
 script = ExtResource("1_6d860")
+walking_sound = ExtResource("2_xht7t")
+jumping_sounds = Array[AudioStreamWAV]([ExtResource("3_3xvii"), ExtResource("4_l47gu"), ExtResource("5_moyer"), ExtResource("6_o22b6")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -157,7 +164,7 @@ debug_shape_custom_color = Color(1, 1, 0, 1)
 debug_shape_thickness = 5
 
 [node name="WeaponPivot" type="Node3D" parent="Head"]
-transform = Transform3D(0.998353, -0.035534, -0.0450135, 0.0171093, 0.933713, -0.357611, 0.0547371, 0.356253, 0.932783, 0.5, -0.7, -0.1)
+transform = Transform3D(0.998353, -0.0355339, -0.0450135, 0.0171093, 0.933713, -0.357611, 0.0547371, 0.356253, 0.932783, 0.5, -0.7, -0.1)
 
 [node name="pizza v1" parent="Head/WeaponPivot" instance=ExtResource("2_xadov")]
 transform = Transform3D(2.18732, -1.19279, -0.207116, 1.19108, 2.19682, -0.0727816, 0.216724, -0.0349977, 2.49034, -0.0214876, -0.00947267, -0.650531)
@@ -240,6 +247,11 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_jepl7")
 expand_mode = 1
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+volume_db = -10.0
+pitch_scale = 0.8
 
 [connection signal="body_entered" from="Head/WeaponPivot/WeaponModel/WeaponHitbox" to="." method="_on_weapon_hitbox_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

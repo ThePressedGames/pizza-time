@@ -1,11 +1,11 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bqh8kkm1la54r"]
 
-[ext_resource type="Material" uid="uid://bhg34bwe4pycc" path="res://Art/Materials/outline.tres" id="1_ic8w7"]
+[ext_resource type="Material" uid="uid://bhg34bwe4pycc" path="res://Art/Materials/outline.tres" id="1_axaaf"]
 [ext_resource type="Shader" path="res://Art/Shaders/cel-shader-emission.gdshader" id="2_nofmc"]
 
 [resource]
 render_priority = 0
-next_pass = ExtResource("1_ic8w7")
+next_pass = ExtResource("1_axaaf")
 shader = ExtResource("2_nofmc")
 shader_parameter/emission = Color(0.239216, 0, 0.309804, 1)
 shader_parameter/emission_energy = 1.0

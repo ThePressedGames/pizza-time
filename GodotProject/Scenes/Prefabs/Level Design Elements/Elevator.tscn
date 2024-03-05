@@ -1,7 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://c80jmo5p7x2l4"]
 
 [ext_resource type="Script" path="res://Scripts/ActivatableMovableElement.gd" id="1_v0jgr"]
+[ext_resource type="AudioStream" uid="uid://i7fn0c217u5l" path="res://Audio/SFX/PizzaTime_PlatformMovement01.wav" id="2_15pq1"]
 [ext_resource type="PackedScene" uid="uid://b8intk1ci0l4v" path="res://Scenes/Prefabs/Level Design Elements/InteractableButton.tscn" id="2_g6dh4"]
+[ext_resource type="AudioStream" uid="uid://cs8hrjvyuo0e6" path="res://Audio/SFX/PizzaTime_PlatformMovement02.wav" id="3_5hftq"]
+[ext_resource type="AudioStream" uid="uid://dc6rtf1rb7vb" path="res://Audio/SFX/PizzaTime_PlatformMovement03.wav" id="4_xhuog"]
+[ext_resource type="AudioStream" uid="uid://b8c81o4ftrmit" path="res://Audio/SFX/PizzaTime_PlatformMovement04.wav" id="5_8khd1"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_1wxs3"]
 top_radius = 3.0
@@ -15,6 +19,7 @@ radius = 3.0
 [node name="Elevator" type="Node3D"]
 script = ExtResource("1_v0jgr")
 two_way_movement = true
+movement_sounds = Array[AudioStreamWAV]([ExtResource("2_15pq1"), ExtResource("3_5hftq"), ExtResource("4_xhuog"), ExtResource("5_8khd1")])
 
 [node name="Pivot" type="Node3D" parent="."]
 
@@ -37,3 +42,5 @@ movable_platforms = [NodePath("../..")]
 
 [node name="EndingNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

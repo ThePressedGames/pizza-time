@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" path="res://Scripts/InteractableButton.gd" id="1_p8mvq"]
 [ext_resource type="Material" uid="uid://b71ceub7220i6" path="res://Art/Materials/button_material.tres" id="2_42uwu"]
+[ext_resource type="AudioStream" uid="uid://cjh3eb2y3jenn" path="res://Audio/SFX/PizzaTime_ButtonPress01.wav" id="2_ue1c0"]
+[ext_resource type="AudioStream" uid="uid://ddfbrppm88x2m" path="res://Audio/SFX/PizzaTime_ButtonPress02.wav" id="3_xmu6f"]
+[ext_resource type="AudioStream" uid="uid://dya6t65del8tr" path="res://Audio/SFX/PizzaTime_ButtonPress03.wav" id="4_dcm48"]
+[ext_resource type="AudioStream" uid="uid://btqp4ny4bmlmi" path="res://Audio/SFX/PizzaTime_ButtonPress04.wav" id="5_xpy3h"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6y4b6"]
 material = ExtResource("2_42uwu")
@@ -17,9 +21,14 @@ radius = 0.4
 collision_layer = 8
 collision_mask = 6
 script = ExtResource("1_p8mvq")
+button_sounds = Array[AudioStreamWAV]([ExtResource("2_ue1c0"), ExtResource("3_xmu6f"), ExtResource("4_dcm48"), ExtResource("5_xpy3h")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_6y4b6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_u0xd6")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 5.0
+max_db = 6.0

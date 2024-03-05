@@ -12,6 +12,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 const SENSITIVITY = 0.003
+var mouse_captured = false
 # Head bob
 const BOB_FREQUENCY = 2.0
 const BOB_AMPLITUDE = 0.08
@@ -37,12 +38,20 @@ var Weapon_Attack_Types = {
 }
 var weapon_attack_animation = Weapon_Attack_Types["THROW"]
 
-
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+# Audio variables
+@onready var audio_stream_player = $AudioStreamPlayer3D
+@export var walking_sound: AudioStreamWAV
+@export var jumping_sounds: Array[AudioStreamWAV]
 
 
 func _unhandled_input(event):
+	if !mouse_captured:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# When Dialogue is active, skip camera movement
+	if Dialogic.current_timeline != null:
+		return
+	
 	# Camera movement
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
@@ -60,6 +69,10 @@ func _unhandled_key_input(_event):
 
 
 func _physics_process(delta):
+	# When Dialogue is active, skip physics process
+	if Dialogic.current_timeline != null:
+		return
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -67,12 +80,17 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+		audio_stream_player.stream = jumping_sounds.pick_random()
+		audio_stream_player.play()
 	
 	# Sprint
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("sprint") and is_on_floor():
 		speed = SPRINT_SPEED
+		audio_stream_player.pitch_scale = 1.1
 	else:
 		speed = WALK_SPEED
+		audio_stream_player.pitch_scale = .8
 	
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
@@ -81,9 +99,14 @@ func _physics_process(delta):
 		if direction:
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
+			
+			if not audio_stream_player.is_playing():
+				audio_stream_player.stream = walking_sound
+				audio_stream_player.play()
 		else:
 			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
 			velocity.z = lerp(velocity.z, direction.z * speed, delta * 7.0)
+			audio_stream_player.stop()
 		
 		# Handle stairs/steps
 		#if step_detection.is_colliding() and not wall_detection.is_colliding():
